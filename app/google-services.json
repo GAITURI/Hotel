@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "245929255945",
+    "project_id": "fir-workout-c94f5",
+    "storage_bucket": "fir-workout-c94f5.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:245929255945:android:0d127fae88047f1e9484d8",
+        "android_client_info": {
+          "package_name": "com.example.hotel"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBRe3lxxnIpSMTrKJ8w5Dz4aawT21KbWqs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

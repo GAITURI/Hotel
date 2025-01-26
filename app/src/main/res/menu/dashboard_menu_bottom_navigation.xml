@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<item
+    android:id="@+id/search_badge"
+    android:icon="@drawable/ic_search_24dp"
+    android:title="@string/search"/>
+<item
+    android:id="@+id/favorite_location_badge"
+    android:icon="@drawable/baseline_edit_location_24"
+    android:title="@string/current_location"/>
+
+    <item
+        android:id="@+id/BookedServices"
+        android:icon="@drawable/baseline_bookmark_24"
+        android:title="@string/bookedservices"/>
+
+    <item
+        android:id="@+id/profile_badge"
+        android:icon="@drawable/ic_person"
+        android:title="@string/profile"/>
+    <item
+        android:id="@+id/chat_badge"
+        android:icon="@drawable/baseline_chat_24"
+        android:title="@string/chat"/>
+
+</menu>
+
+
+
+
+

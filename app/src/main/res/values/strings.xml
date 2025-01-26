@@ -1,0 +1,42 @@
+<resources>
+    <string name="app_name">hotel</string>
+    <string name="action_settings">Settings</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="username">Username</string>
+    <string name="register">Register</string>
+    <string name="gender">Gender</string>
+    <string name="female">Female</string>
+    <string name="male">Male</string>
+    <string name="already_have_an_account_login" />
+    <string name="already_have_an_account_logi">Already_have_an_account_login</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="enter_name">Enter Name</string>
+    <string name="what_services_might_you_need">What Services might you need</string>
+    <string name="choose_hotel">Choose Hotel</string>
+    <string name="scroll_and_choose_hotel">Scroll and choose hotel</string>
+    <string name="search">Search</string>
+    <string name="profile">Profile</string>
+    <string name="chat">Chat</string>
+    <string name="bookedservices">BookedServices</string>
+    <string name="current_location">Current Location</string>
+    <string name="choose_your_drinks_and_meals">Choose your drinks and meals</string>
+    <string name="check_our_cleaning_services">Check our Cleaning Services</string>
+    <string name="catering_services">Catering Services</string>
+   <string name="cleaning_services">Cleaning Services</string>
+    <string name="logistics_services">Logistics Services</string>"
+    <string name="Selected_logistics">Selected Logistics</string>
+    <string name="breakfast">Breakfast</string>"
+    <string-array name="Logistics">
+        <item>Aeroplane</item>
+        <item>Personal Vehicle</item>
+        <item>Company Vehicle</item>
+        <item>Motorbike</item>
+
+    </string-array>
+
+
+
+
+</resources>
