@@ -27,7 +27,8 @@
    <string name="cleaning_services">Cleaning Services</string>
     <string name="logistics_services">Logistics Services</string>"
     <string name="Selected_logistics">Selected Logistics</string>
-    <string name="breakfast">Breakfast</string>"
+    <string name="breakfast">Breakfast</string>
+    <string name="forgot_password">Forgot Password</string>"
     <string-array name="Logistics">
         <item>Aeroplane</item>
         <item>Personal Vehicle</item>

@@ -1,5 +1,6 @@
 package com.example.hotel
 
+import android.app.ProgressDialog.show
 import android.content.Context
 import android.content.Intent
 import android.net.ConnectivityManager
@@ -9,7 +10,9 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.material3.AlertDialog
 import com.example.hotel.databinding.ActivityLoginBinding
 import com.example.hotel.ui.theme.BookingActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -25,6 +28,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var btnRegister: Button
     private lateinit var progressBar: View
+    private lateinit var forgotPass: Button
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
@@ -34,13 +38,19 @@ class LoginActivity : AppCompatActivity() {
         lgnPassword = findViewById(R.id.userPassword)
         btnLogin = findViewById(R.id.LoginButton)
         btnRegister = findViewById(R.id.RegisterButton)
+        forgotPass=findViewById(R.id.forgotPass)
+        getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
         //initalize firebase auth
         auth = FirebaseAuth.getInstance()
+        forgotPass.setOnClickListener{
+            showForgotPasswordDialog()
+        }
         btnRegister?.setOnClickListener {
             val intent = Intent(this, SignupActivity::class.java)
             startActivity(intent)
             finish()
         }
+
         btnLogin.setOnClickListener {
             login()
 
@@ -48,7 +58,41 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
-        private fun login() {
+    private fun showForgotPasswordDialog() {
+        val builder= AlertDialog.Builder(this)
+        builder.setTitle("Reset Password")
+
+      val view= layoutInflater.inflate(R.layout.dialog_forgot_password,null)
+        var forgotEmail=view.findViewById<EditText>(R.id.ForgotEmail)
+        builder.setView(view)
+        builder.setPositiveButton("Reset"){_,_->
+            val forEmail=forgotEmail.text.toString()
+            if (forEmail.isEmpty()){
+                Toast.makeText(this,"Please enter your email",Toast.LENGTH_SHORT).show()
+            }else {
+            sendPasswordResetEmail(forEmail)
+            }
+
+        }
+        builder.setNegativeButton("Cancel"){dialog,_->
+            dialog.dismiss()
+        }
+        builder.show()
+    }
+
+    private fun sendPasswordResetEmail(forEmail: String) {
+        FirebaseAuth.getInstance().sendPasswordResetEmail(forEmail)
+            .addOnCompleteListener{ task ->
+                if (task.isSuccessful){
+                    Toast.makeText(this,"Password reset email sent.", Toast.LENGTH_SHORT).show()
+                }else{
+                    Toast.makeText(this,"Failed to send password reset email.", Toast.LENGTH_SHORT).show()
+                }
+
+            }
+    }
+
+    private fun login() {
             val email = lgnEmail.text.toString()
             val pass = lgnPassword.text.toString()
             //calling signInWithEmailAndPassword(email,pass)
