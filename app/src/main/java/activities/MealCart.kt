@@ -2,7 +2,6 @@ package activities
 
 import android.os.Bundle
 import android.view.View
-import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -12,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.hotel.MealCartViewModel
 import com.example.hotel.PizzaDessertAdapter
 import com.example.hotel.R
-import com.example.hotel.databinding.FragmentMealCartBinding
 
 class MealCart :AppCompatActivity() {
 
@@ -35,15 +33,14 @@ override fun onCreate(savedInstanceState: Bundle?) {
     pizzaDessertRecyclerView.layoutManager= LinearLayoutManager(this)
     pizzaDessertAdapter= PizzaDessertAdapter(emptyList())
     pizzaDessertRecyclerView.adapter= pizzaDessertAdapter
-    viewModel= ViewModelProvider(this).get(MealCartViewModel::class.java)
+    viewModel= ViewModelProvider(this)[MealCartViewModel::class.java]
 
-    viewModel.pizzas.observe(this){ pizzas->viewModel.desserts.observe(this){ desserts->
+    viewModel.burgers.observe(this){burgers->
         val combinedList= mutableListOf<Any>()
-        combinedList.addAll(pizzas)
-        combinedList.addAll(desserts)
+        combinedList.addAll(burgers)
         pizzaDessertAdapter=PizzaDessertAdapter(combinedList)
         pizzaDessertRecyclerView.adapter= pizzaDessertAdapter
-    }
+
     }
 viewModel.error.observe(this){
     error->errorTextView.text= error

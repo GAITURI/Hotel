@@ -7,37 +7,23 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.hotel.ui.theme.Dessert
-import com.example.hotel.ui.theme.Pizza
+import com.example.hotel.ui.theme.Burgers
 
-class PizzaDessertAdapter (private val items:List<Any>): RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+class PizzaDessertAdapter(private val items: List<Any>): RecyclerView.Adapter<RecyclerView.ViewHolder>(){
  companion object{
-     private const val VIEW_TYPE_PIZZA=1
-     private const val VIEW_TYPE_DESSERT=2
+     private const val VIEW_TYPE_BURGERS=1
+
 
  }
 
 
 
-
-
-
-
-
-
-
-
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-    val inflater= LayoutInflater.from(parent.context)
+        val inflater= LayoutInflater.from(parent.context)
         return when(viewType){
-            VIEW_TYPE_PIZZA->{
+            VIEW_TYPE_BURGERS->{
                 val view=inflater.inflate(R.layout.items,parent,false)
                     PizzaViewHolder(view)
-            }
-            VIEW_TYPE_DESSERT ->{
-                val view= inflater.inflate(R.layout.item_dessert, parent, false)
-                DessertViewHolder(view)
             }
             else ->throw IllegalArgumentException("Invalid view type")
         }
@@ -47,48 +33,32 @@ class PizzaDessertAdapter (private val items:List<Any>): RecyclerView.Adapter<Re
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
        when (holder.itemViewType){
-           VIEW_TYPE_PIZZA ->{
-               val pizza =items[position] as Pizza
-               (holder as PizzaViewHolder).bind(pizza)
+           VIEW_TYPE_BURGERS->{
+               val burgers =items[position] as Burgers
+               (holder as PizzaViewHolder).bind(burgers)
            }
-           VIEW_TYPE_DESSERT->{
-               val dessert= items[position] as Dessert
-               (holder as DessertViewHolder).bind(dessert)
-           }
+
        }
     }
  override fun getItemCount():Int= items.size
     override fun getItemViewType(position: Int): Int {
         return when (items[position]){
-            is Pizza -> VIEW_TYPE_PIZZA
-            is Dessert -> VIEW_TYPE_DESSERT
-            else ->throw
-                    IllegalArgumentException("Invalid item type")
+
+            else -> VIEW_TYPE_BURGERS
         }
     }
     class PizzaViewHolder(itemView:View):RecyclerView.ViewHolder(itemView){
         private val pizzaImageView: ImageView = itemView.findViewById(R.id.pizzaImageView)
         private val pizzaNameTextView:TextView= itemView.findViewById(R.id.pizzaNameTextView)
 
-        fun bind(pizza: Pizza){
-            pizzaNameTextView.text= pizza.name
+        fun bind(burgers: Burgers){
+            pizzaNameTextView.text= burgers.name
             Glide.with(itemView.context)
-                .load(pizza.imageUrls)
+                .load(burgers.imageUrls)
                 .into(pizzaImageView)
 
         }
 
-    }
-    class DessertViewHolder(itemView: View):RecyclerView.ViewHolder(itemView){
-        private val dessertImageView: ImageView= itemView.findViewById(R.id.dessertImageView)
-        private val dessertNameTextView:TextView= itemView.findViewById(R.id.dessertNameTextView)
-
-        fun bind(dessert: Dessert){
-            dessertNameTextView.text= dessert.name
-            Glide.with(itemView.context)
-                .load(dessert.imageUrls)
-                .into(dessertImageView)
-        }
     }
 
 }

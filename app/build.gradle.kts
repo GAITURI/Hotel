@@ -79,6 +79,7 @@ dependencies {
     implementation(libs.circleimageview)
     implementation(libs.android.gif.drawable)
 
+
     // Lifecycle & ViewModel
     implementation(libs.androidx.lifecycle.livedata.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)

@@ -14,7 +14,7 @@ private val loggingInterceptor= HttpLoggingInterceptor().apply{
         .build()
     val api:Api by lazy {
         Retrofit.Builder()
-            .baseUrl("https://pizza-and-desserts.p.rapidapi.com/")
+            .baseUrl("https://burgers-hub.p.rapidapi.com/burgers/")
             .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
