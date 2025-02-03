@@ -1,13 +1,21 @@
 package com.example.hotel.ui.theme
 
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitInstance {
-
+private val loggingInterceptor= HttpLoggingInterceptor().apply{
+    level=HttpLoggingInterceptor.Level.BODY
+}
+    private val client= OkHttpClient.Builder()
+        .addInterceptor(loggingInterceptor)
+        .build()
     val api:Api by lazy {
         Retrofit.Builder()
-            .baseUrl("https://www.deshizon.com/api/")
+            .baseUrl("https://pizza-and-desserts.p.rapidapi.com/")
+            .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(Api::class.java)

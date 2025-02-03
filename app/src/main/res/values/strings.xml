@@ -24,11 +24,11 @@
     <string name="choose_your_drinks_and_meals">Choose your drinks and meals</string>
     <string name="check_our_cleaning_services">Check our Cleaning Services</string>
     <string name="catering_services">Catering Services</string>
-   <string name="cleaning_services">Cleaning Services</string>
+    <string name="cleaning_services">Cleaning Services</string>
     <string name="logistics_services">Logistics Services</string>"
     <string name="Selected_logistics">Selected Logistics</string>
     <string name="breakfast">Breakfast</string>
-    <string name="forgot_password">Forgot Password</string>"
+    <string name="forgot_password">Forgot Password?</string>"
     <string-array name="Logistics">
         <item>Aeroplane</item>
         <item>Personal Vehicle</item>
@@ -36,8 +36,8 @@
         <item>Motorbike</item>
 
     </string-array>
-
-
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

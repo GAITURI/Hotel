@@ -1,20 +1,17 @@
-package com.example.hotel
+package activities
 
-import android.app.ProgressDialog.show
 import android.content.Context
 import android.content.Intent
 import android.net.ConnectivityManager
 import android.os.Bundle
-import android.os.Message
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.material3.AlertDialog
 import com.example.hotel.databinding.ActivityLoginBinding
-import com.example.hotel.ui.theme.BookingActivity
+import com.example.hotel.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
@@ -26,7 +23,6 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var lgnEmail: EditText
     private lateinit var lgnPassword:EditText
     private lateinit var auth: FirebaseAuth
-    private lateinit var btnRegister: Button
     private lateinit var progressBar: View
     private lateinit var forgotPass: Button
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,18 +33,12 @@ class LoginActivity : AppCompatActivity() {
         lgnEmail = findViewById(R.id.userEmail)
         lgnPassword = findViewById(R.id.userPassword)
         btnLogin = findViewById(R.id.LoginButton)
-        btnRegister = findViewById(R.id.RegisterButton)
         forgotPass=findViewById(R.id.forgotPass)
-        getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         //initalize firebase auth
         auth = FirebaseAuth.getInstance()
         forgotPass.setOnClickListener{
             showForgotPasswordDialog()
-        }
-        btnRegister?.setOnClickListener {
-            val intent = Intent(this, SignupActivity::class.java)
-            startActivity(intent)
-            finish()
         }
 
         btnLogin.setOnClickListener {

@@ -2,13 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.CAMERA" />
+
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -20,13 +21,19 @@
         android:theme="@style/Theme.Hotel"
         tools:targetApi="31">
         <activity
-            android:name=".ui.theme.BookingActivity"
+            android:name="activities.MealCart"
             android:exported="false" />
         <activity
-            android:name=".SignupActivity"
+            android:name=".ui.theme.GymActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name="activities.BookingActivity"
+            android:exported="false" />
+        <activity
+            android:name="activities.SignupActivity"
+            android:exported="false" />
+        <activity
+            android:name="activities.LoginActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.AppCompat.NoActionBar">

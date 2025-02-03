@@ -1,10 +1,12 @@
 
 
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.google.gms.google.services)
+
 }
 
 android {
@@ -30,16 +32,20 @@ android {
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+
     kotlinOptions {
         jvmTarget = "11"
     }
+
     buildFeatures {
         compose = true
-        viewBinding=true
+        dataBinding = true  // ✅ Use dataBinding instead of viewBinding (if needed)
+        viewBinding= true
     }
 }
 
@@ -57,19 +63,31 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
-    implementation(libs.androidx.compiler)
-    implementation (libs.floatingsearchview)
+
+    // UI & Network
+    implementation(libs.floatingsearchview)
     implementation(libs.retrofit)
-    implementation ("com.github.bumptech.glide:glide:4.16.0")
-    implementation (libs.converter.gson)
-    implementation("com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava")
+    implementation(libs.converter.gson)
+    implementation(libs.glide.v4160)
+    implementation(libs.okhttp)
+    implementation(libs.logging.interceptor)
+
+    // Firebase
     implementation(libs.firebase.auth)
+
+    // UI Extras
     implementation(libs.circleimageview)
-    implementation(libs.androidx.legacy.support.v4)
+    implementation(libs.android.gif.drawable)
+
+    // Lifecycle & ViewModel
     implementation(libs.androidx.lifecycle.livedata.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.fragment.ktx)
-    implementation(libs.android.gif.drawable)
+
+    // ✅ Explicitly add Data Binding Runtime (tovoid version mismatch)
+    implementation(libs.androidx.databinding.runtime)
+
+    // Testing a
     implementation(libs.androidx.runner)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
@@ -78,4 +96,25 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+}
+
+// ✅ Force consistent versions to avoid duplicates
+configurations.all {
+    resolutionStrategy {
+        eachDependency {
+            if (requested.group == "androidx.databinding" && requested.name == "baseLibrary") {
+                // Exclude baseLibrary from all dependencies
+                exclude(group = "androidx.databinding", module = "baseLibrary")
+                        when (requested.name) {
+                            "databinding-common" -> useVersion("8.8.0")
+                            "databinding-runtime" -> useVersion("8.8.0")
+                            "databinding-compiler" -> useVersion("8.8.0")
+
+                        }
+
+
+            }
+
+        }
+    }
 }
