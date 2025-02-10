@@ -78,7 +78,7 @@ dependencies {
     // UI Extras
     implementation(libs.circleimageview)
     implementation(libs.android.gif.drawable)
-
+    implementation (libs.lottie)
 
     // Lifecycle & ViewModel
     implementation(libs.androidx.lifecycle.livedata.ktx)

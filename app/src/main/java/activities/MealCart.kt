@@ -9,8 +9,12 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hotel.MealCartViewModel
+import com.example.hotel.MealCartViewModelFactory
+import com.example.hotel.MealRepository
 import com.example.hotel.PizzaDessertAdapter
 import com.example.hotel.R
+import com.example.hotel.ui.theme.Burgers
+import com.example.hotel.ui.theme.RetrofitInstance
 
 class MealCart :AppCompatActivity() {
 
@@ -27,16 +31,19 @@ override fun onCreate(savedInstanceState: Bundle?) {
     setTheme(R.style.AppTheme)
    setContentView(R.layout.fragment_meal_cart)
 
+
     loadingProgressBar=findViewById(R.id.loadingProgressBar)
     errorTextView= findViewById(R.id.errorTextView)
     pizzaDessertRecyclerView= findViewById(R.id.pizzaDessertRecyclerView)
     pizzaDessertRecyclerView.layoutManager= LinearLayoutManager(this)
     pizzaDessertAdapter= PizzaDessertAdapter(emptyList())
     pizzaDessertRecyclerView.adapter= pizzaDessertAdapter
-    viewModel= ViewModelProvider(this)[MealCartViewModel::class.java]
+    val mealRepository= MealRepository(RetrofitInstance.api)
+    val viewModelFactory= MealCartViewModelFactory(mealRepository)
+    viewModel= ViewModelProvider(this,viewModelFactory)[MealCartViewModel::class.java]
 
     viewModel.burgers.observe(this){burgers->
-        val combinedList= mutableListOf<Any>()
+        val combinedList= mutableListOf<Burgers>()
         combinedList.addAll(burgers)
         pizzaDessertAdapter=PizzaDessertAdapter(combinedList)
         pizzaDessertRecyclerView.adapter= pizzaDessertAdapter

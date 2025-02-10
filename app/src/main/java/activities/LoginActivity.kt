@@ -2,11 +2,13 @@ package activities
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Paint
 import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -24,7 +26,8 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var lgnPassword:EditText
     private lateinit var auth: FirebaseAuth
     private lateinit var progressBar: View
-    private lateinit var forgotPass: Button
+    private lateinit var forgotPass: TextView
+    private lateinit var txtSignUP:TextView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
@@ -34,9 +37,15 @@ class LoginActivity : AppCompatActivity() {
         lgnPassword = findViewById(R.id.userPassword)
         btnLogin = findViewById(R.id.LoginButton)
         forgotPass=findViewById(R.id.forgotPass)
+        txtSignUP=findViewById(R.id.txtSignUp)
+
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         //initalize firebase auth
         auth = FirebaseAuth.getInstance()
+
+        //underline text
+        forgotPass.paintFlags= Paint.UNDERLINE_TEXT_FLAG
+        txtSignUP.paintFlags=Paint.UNDERLINE_TEXT_FLAG
         forgotPass.setOnClickListener{
             showForgotPasswordDialog()
         }
@@ -44,6 +53,11 @@ class LoginActivity : AppCompatActivity() {
         btnLogin.setOnClickListener {
             login()
 
+        }
+
+
+        txtSignUP.setOnClickListener{
+            val intent=Intent(this,SignupActivity::class.java)
         }
 
     }

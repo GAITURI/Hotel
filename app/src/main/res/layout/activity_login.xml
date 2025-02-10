@@ -32,16 +32,19 @@
             android:backgroundTint="@color/white"
             android:background="@drawable/custom_edittext">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/login"
-                android:id="@+id/loginText"
-                android:textStyle="bold"
-                android:textSize="36sp"
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:background="@drawable/custom_edittext"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/login"
+        android:id="@+id/loginText"
+        android:textStyle="bold"
+        android:textSize="36sp"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:background="@drawable/custom_edittext"/>
+
+
+
 
 
             <EditText
@@ -56,12 +59,12 @@
                 android:autofillHints="emailAddress"
                 android:inputType="textEmailAddress"
                 android:padding="8dp"
-                android:textStyle="bold"
+                android:textStyle="normal"
                 android:textColorHint="@color/black" />
 
             <EditText
                 android:id="@+id/userPassword"
-                android:textStyle="bold"
+                android:textStyle="normal"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="20dp"
@@ -76,28 +79,54 @@
 
             <Button
                 android:id="@+id/LoginButton"
-                android:layout_width="match_parent"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:backgroundTint="@color/purple"
                 android:text="@string/login"
                 android:textAlignment="center"
                 android:textSize="18sp"
+                style="@style/SigninButtonShapeAppearance"
                 app:cornerRadius="20dp" />
 
 
-            <Button
+            <TextView
                 android:id="@+id/forgotPass"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginTop="15dp"
-                android:backgroundTint="@color/purple"
                 android:text="@string/forgot_password"
                 android:textAlignment="center"
-                android:textSize="18sp"
-                app:cornerRadius="20dp" />
+                android:textColor="@color/black"
+                android:textSize="20sp" />
 
         </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginTop="0dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtSignUp"
+                android:layout_alignParentEnd="false"
+                android:layout_alignParentStart="false"
+                android:layout_marginBottom="40dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="100dp"
+                android:textColor="@color/black"
+                android:text="@string/don_t_have_an_account_sign_up_now"
+                />
+
+
+
+
+        </RelativeLayout>
+
 
     </androidx.cardview.widget.CardView>
 </LinearLayout>
