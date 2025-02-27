@@ -68,9 +68,10 @@ dependencies {
     implementation(libs.floatingsearchview)
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
-    implementation(libs.glide.v4160)
     implementation(libs.okhttp)
     implementation(libs.logging.interceptor)
+    implementation(libs.glide)
+
 
     // Firebase
     implementation(libs.firebase.auth)
@@ -90,6 +91,7 @@ dependencies {
 
     // Testing a
     implementation(libs.androidx.runner)
+    implementation(libs.car.ui.lib)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

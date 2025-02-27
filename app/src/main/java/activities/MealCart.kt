@@ -8,12 +8,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.hotel.MealCartViewModel
-import com.example.hotel.MealCartViewModelFactory
-import com.example.hotel.MealRepository
+import com.example.hotel.viewModels.MealCartViewModel
+import com.example.hotel.viewModels.MealCartViewModelFactory
+import com.example.hotel.repositories.MealRepository
 import com.example.hotel.PizzaDessertAdapter
 import com.example.hotel.R
-import com.example.hotel.ui.theme.Burgers
+import com.example.hotel.data.Burgers
 import com.example.hotel.ui.theme.RetrofitInstance
 
 class MealCart :AppCompatActivity() {
@@ -29,7 +29,7 @@ class MealCart :AppCompatActivity() {
 override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setTheme(R.style.AppTheme)
-   setContentView(R.layout.fragment_meal_cart)
+   setContentView(R.layout.activity_mealcart)
 
 
     loadingProgressBar=findViewById(R.id.loadingProgressBar)

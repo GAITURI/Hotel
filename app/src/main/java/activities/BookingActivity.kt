@@ -18,7 +18,11 @@ binding=ActivityBookingBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         cardView= findViewById(R.id.cardFood)
-
+        val cardMovie=findViewById<CardView>(R.id.cardMovie)
+        cardMovie.setOnClickListener{
+            val intent=Intent(this,Movie::class.java)
+            startActivity(intent)
+        }
         cardView.setOnClickListener{
             val intent= Intent(this, MealCart::class.java)
             startActivity(intent)

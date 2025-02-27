@@ -47,7 +47,7 @@
     <com.arlib.floatingsearchview.FloatingSearchView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/floating_search_view"
+        android:id="@+id/floating_search_viw"
         app:floatingSearch_searchBarMarginLeft="5dp"
         app:floatingSearch_searchBarMarginRight="5dp"
         app:floatingSearch_searchBarMarginTop="5dp"

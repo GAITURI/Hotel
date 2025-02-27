@@ -1,5 +1,6 @@
 package com.example.hotel.ui.theme
 
+import com.example.hotel.interfaces.Api
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -12,7 +13,7 @@ private val loggingInterceptor= HttpLoggingInterceptor().apply{
     private val client= OkHttpClient.Builder()
         .addInterceptor(loggingInterceptor)
         .build()
-    val api:Api by lazy {
+    val api: Api by lazy {
         Retrofit.Builder()
             .baseUrl("https://burgers-hub.p.rapidapi.com/burgers/")
             .client(client)

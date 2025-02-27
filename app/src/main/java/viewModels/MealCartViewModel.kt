@@ -1,12 +1,15 @@
-package com.example.hotel
+package com.example.hotel.viewModels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.example.hotel.ui.theme.Burgers
+import com.example.hotel.data.Burgers
+import com.example.hotel.repositories.MealRepository
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
+import java.io.IOException
 
 class MealCartViewModel(private val repository: MealRepository): ViewModel() {
     //an instance of meal repository assigned to the repository property
@@ -26,19 +29,24 @@ class MealCartViewModel(private val repository: MealRepository): ViewModel() {
     val isLoading:LiveData<Boolean> = _isLoading
 
     init {
-        loadData()
+      getBurgers()
     }
 //Responsible for fetching the pizza and dessert data from the repository and updating the LiveData objects
-    private fun loadData(){
+private fun getBurgers(id:String?=null,name:String?=null,price:String?=null,description:String?=null){
         viewModelScope.launch {
-            _isLoading.value=true
+            _isLoading.value = true
             try {
-                val burgers=repository.getBurgers()
-                _burgers.value=burgers
+                val burgers = repository.getBurgers(id,name,description)
+                _burgers.value = burgers
 
-            }catch (e:Exception){
-                _error.value="Error Loading data: ${e.message}"
-            }finally {
+            } catch (e: Exception) {
+                _error.value = "Error Loading data: ${e.message}"
+            } catch (e: HttpException) {
+                _error.value = "HTTP Error: ${e.message()}"
+            }catch (e: IOException) {
+                _error.value = "Network Error: ${e.message}"
+            }
+            finally {
                 _isLoading.value=false
         }
     }
