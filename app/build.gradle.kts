@@ -67,6 +67,7 @@ dependencies {
     // UI & Network
     implementation(libs.floatingsearchview)
     implementation(libs.retrofit)
+    implementation(libs.gson)
     implementation(libs.converter.gson)
     implementation(libs.okhttp)
     implementation(libs.logging.interceptor)
@@ -92,6 +93,7 @@ dependencies {
     // Testing a
     implementation(libs.androidx.runner)
     implementation(libs.car.ui.lib)
+    implementation(libs.picasso)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

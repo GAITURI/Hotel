@@ -70,7 +70,7 @@
                     android:background="@drawable/custom_edittext"
                     android:fontFamily="@font/gadugi_bold"
                     android:paddingTop="@dimen/margin20"
-                    android:text="Meals"
+                    android:text="Burgers"
                     android:textAlignment="center" />
 
             </LinearLayout>
@@ -108,7 +108,7 @@
                     android:background="@drawable/custom_edittext"
                     android:fontFamily="@font/gadugi_bold"
                     android:paddingTop="@dimen/margin20"
-                    android:text="Drinks"
+                    android:text="Drink"
                     android:textAlignment="center" />
 
             </LinearLayout>
@@ -157,7 +157,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="GYM"
+                android:text="Meat Joints"
                 android:paddingTop="@dimen/margin20"
                 android:background="@drawable/custom_edittext"
                 android:fontFamily="@font/gadugi_bold"
@@ -198,7 +198,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Entertainment"
+            android:text="Cuisines"
             android:paddingTop="@dimen/margin20"
             android:background="@drawable/custom_edittext"
             android:fontFamily="@font/gadugi_bold"
@@ -247,7 +247,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="DRY CLEANING"
+                    android:text="Pizza"
                     android:paddingTop="@dimen/margin20"
                     android:background="@drawable/custom_edittext"
                     android:fontFamily="@font/gadugi_bold"
@@ -287,7 +287,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Logistics"
+                    android:text="Delivery"
                     android:paddingTop="@dimen/margin20"
                     android:background="@drawable/custom_edittext"
                     android:fontFamily="@font/gadugi_bold"

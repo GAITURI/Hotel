@@ -1,6 +1,7 @@
 [versions]
 agp = "8.8.1"
-converterGson = "2.3.0"
+converterGson = "2.9.0"
+gson = "2.10.1"
 kotlin = "2.1.10"
 floatingsearchview = "2.1.1"
 glide = "4.16.0"
@@ -32,6 +33,7 @@ retrofit = "2.9.0"
 
 runner = "1.6.2"
 carUiLib = "2.6.0"
+picasso = "2.71828"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -39,6 +41,7 @@ converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref
 floatingsearchview = { module = "com.github.arimorty:floatingsearchview", version.ref = "floatingsearchview" }
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
 glide-compiler = { module = "com.github.bumptech.glide:compiler", version.ref = "glide" }
+gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -74,6 +77,7 @@ pageindicatorview = { module = "com.romandanylyk:pageindicatorview", version.ref
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 androidx-runner = { group = "androidx.test", name = "runner", version.ref = "runner" }
 car-ui-lib = { group = "com.android.car.ui", name = "car-ui-lib", version.ref = "carUiLib" }
+picasso = { group = "com.squareup.picasso", name = "picasso", version.ref = "picasso" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

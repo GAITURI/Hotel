@@ -1,6 +1,7 @@
 package activities
 
 import android.content.Intent
+import android.graphics.Movie
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
@@ -20,7 +21,7 @@ binding=ActivityBookingBinding.inflate(layoutInflater)
         cardView= findViewById(R.id.cardFood)
         val cardMovie=findViewById<CardView>(R.id.cardMovie)
         cardMovie.setOnClickListener{
-            val intent=Intent(this,Movie::class.java)
+            val intent=Intent(this, Movie::class.java)
             startActivity(intent)
         }
         cardView.setOnClickListener{

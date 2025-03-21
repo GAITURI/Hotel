@@ -54,6 +54,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="don_t_have_an_account_sign_up_now">Don\'t have an account? Sign up now.</string>
+    <string name="pizzaimage">PizzaImage</string>
 
 
 </resources>

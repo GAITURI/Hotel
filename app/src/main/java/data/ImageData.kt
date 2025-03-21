@@ -1,11 +1,16 @@
-package com.example.hotel.data
+package data
 
-import com.google.gson.annotations.SerializedName
+
 
 data class ImageData (
+    val sm: String?
 
-    @SerializedName("sm") val smallImageUrl:String?,
-    @SerializedName("md") val mediumImageUrl:String?,
-    @SerializedName("lg") val largeImageUrl:String?
-
-)
+){
+    override fun hashCode(): Int {
+        var result= 0
+        if(sm!=null ){
+            result= sm.hashCode()
+        }
+        return result
+    }
+}
