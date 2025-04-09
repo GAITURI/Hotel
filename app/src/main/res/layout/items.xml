@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
+<androidx.cardview.widget.CardView xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -7,47 +7,60 @@
     app:cardCornerRadius="8dp"
     app:cardElevation="8dp"
     android:layout_margin="5dp">
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:padding="16dp">
+
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintWidth_percent=".3"
-            app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:src="@drawable/ic_launcher_background"
-            />
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:contentDescription="@string/breakfast"
+             />
 
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_marginStart="16dp">
         <TextView
             android:id="@+id/tvTitle"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:textSize="25sp"
-            android:fontFamily="sans-serif"
-            android:textColor="#212121"
-            android:layout_marginStart="10dp"
-            android:text="This is a very long title and here it is"
-            android:layout_marginLeft="10dp" />
+            android:layout_marginTop="12dp"
+            android:padding="16sp"
+            android:text="@string/breakfast"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@android:color/black" />
+
+
         <TextView
-            android:id="@+id/tvDescription"
-            android:layout_width="0dp"
+            android:id="@+id/tvPrice"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@+id/tvTitle"
-            app:layout_constraintEnd_toEndOf="@id/tvTitle"
-            app:layout_constraintTop_toBottomOf="@+id/tvTitle"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:textSize="18sp"
-            android:fontFamily="sans-serif"
-            android:text="This is a very long title and here it is"
-            />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:text="@string/price"
+            android:textSize="14sp" />
+
+
+
+
+    </LinearLayout>
+
+
+        <Button
+            android:id="@+id/btnAddToCart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add to Cart"
+            android:src="@drawable/baseline_add_shopping_cart_24" />
+
+
+    </LinearLayout>
+
 
 
 </androidx.cardview.widget.CardView>

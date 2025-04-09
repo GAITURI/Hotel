@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.hotel.PizzaDessertAdapter
+import com.example.hotel.data.PizzaDessertAdapter
 import com.example.hotel.R
 import data.Burgers
 import retrofit2.Call
@@ -31,7 +31,7 @@ class MealCart :AppCompatActivity() {
             override fun onResponse(call: Call<List<Burgers>>, response: Response<List<Burgers>>) {
                if(response.isSuccessful){
                    recyclerView= findViewById<RecyclerView>(R.id.pizzaDessertRecyclerView).apply {
-                       adapter=PizzaDessertAdapter(response.body()!!)
+                       adapter= PizzaDessertAdapter(response.body()!!)
                        layoutManager=manager
                        adapter=adapter
                    }

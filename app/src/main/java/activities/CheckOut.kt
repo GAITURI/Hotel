@@ -1,4 +1,4 @@
-package com.example.hotel.ui.theme
+package activities
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
@@ -7,11 +7,11 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.hotel.R
 
-class GymActivity : AppCompatActivity() {
+class CheckOut : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_gym)
+        setContentView(R.layout.activity_check_out)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)

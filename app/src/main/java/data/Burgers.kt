@@ -9,6 +9,7 @@ data class Burgers(
   @SerializedName("images")
   val images:List<ImageData>,
   val description:String,
+  val price:Double?= null,
   val data:List<Burgers>
 
 )

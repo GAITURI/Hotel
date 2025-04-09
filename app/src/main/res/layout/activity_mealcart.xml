@@ -5,11 +5,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/background"
     tools:context="activities.MealCart">
 
 <androidx.recyclerview.widget.RecyclerView
-    android:layout_width="match_parent"
+    android:layout_width="0dp"
     android:layout_height="match_parent"
     android:id="@+id/pizzaDessertRecyclerView"
     android:layout_margin="5dp"

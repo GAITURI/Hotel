@@ -1,13 +1,11 @@
-package com.example.hotel
+package com.example.hotel.data
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.hotel.R
 import com.example.hotel.databinding.ItemsBinding
 import data.Burgers
 
@@ -25,16 +23,17 @@ private var listData:MutableList<Burgers>  = burgers as MutableList<Burgers>
             //get the reference to the views in the items.xml layout file
             val binding= ItemsBinding.bind(view)
             binding.tvTitle.text=burger.name
-            binding.tvDescription.text=burger.description
+            binding.tvPrice.text=burger.price.toString()
             Glide.with(view.context)
                 .load(burger.images)
+                .placeholder(R.drawable.meal)
                 .centerCrop()
                 .into(binding.imageView)
         }
 
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):BurgerViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BurgerViewHolder {
         val v=LayoutInflater.from(parent.context).inflate(R.layout.items,parent,false)
         return BurgerViewHolder(v)
     }
@@ -42,7 +41,7 @@ private var listData:MutableList<Burgers>  = burgers as MutableList<Burgers>
     override fun getItemCount(): Int {
         return burgers.size
     }
-    override fun onBindViewHolder(holder: PizzaDessertAdapter.BurgerViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: BurgerViewHolder, position: Int) {
         holder.bind(burgers[position])
     }
 
