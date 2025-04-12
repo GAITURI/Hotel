@@ -58,6 +58,13 @@
     <string name="addtocart">Add To Cart</string>
     <string name="add">Add</string>
     <string name="price">Price</string>
+    <string name="order_summary">Order Summary</string>
+    <string name="burgers_ordered">Burgers Ordered:</string>
+    <string name="subtotal">Subtotal:</string>
+    <string name="_0_00">$0.00</string>
+    <string name="cartitemprice">Price</string>
+    <string name="burgersection">BurgerSection</string>
+    <string name="place_order">Place Order</string>
 
 
 </resources>

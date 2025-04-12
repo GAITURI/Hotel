@@ -34,6 +34,7 @@ retrofit = "2.9.0"
 runner = "1.6.2"
 carUiLib = "2.6.0"
 picasso = "2.71828"
+volley = "1.2.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -78,6 +79,7 @@ retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit
 androidx-runner = { group = "androidx.test", name = "runner", version.ref = "runner" }
 car-ui-lib = { group = "com.android.car.ui", name = "car-ui-lib", version.ref = "carUiLib" }
 picasso = { group = "com.squareup.picasso", name = "picasso", version.ref = "picasso" }
+volley = { group = "com.android.volley", name = "volley", version.ref = "volley" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
