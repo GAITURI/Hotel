@@ -133,6 +133,7 @@ class CheckOut : AppCompatActivity() {
                        progressLayout.visibility= View.GONE
                    Toast.makeText(this, "No internet Connection", Toast.LENGTH_SHORT).show()
                    }
+               //other functions
                }
            }
         }
