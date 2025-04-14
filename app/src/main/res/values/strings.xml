@@ -65,6 +65,8 @@
     <string name="cartitemprice">Price</string>
     <string name="burgersection">BurgerSection</string>
     <string name="place_order">Place Order</string>
+    <string name="order_has_been_placed_successfully">Order Has Been Placed Successfully</string>
+    <string name="ok">Ok</string>
 
 
 </resources>

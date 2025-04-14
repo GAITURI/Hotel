@@ -35,6 +35,7 @@ runner = "1.6.2"
 carUiLib = "2.6.0"
 picasso = "2.71828"
 volley = "1.2.1"
+firebaseDatabaseKtx = "21.0.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -80,6 +81,7 @@ androidx-runner = { group = "androidx.test", name = "runner", version.ref = "run
 car-ui-lib = { group = "com.android.car.ui", name = "car-ui-lib", version.ref = "carUiLib" }
 picasso = { group = "com.squareup.picasso", name = "picasso", version.ref = "picasso" }
 volley = { group = "com.android.volley", name = "volley", version.ref = "volley" }
+firebase-database-ktx = { group = "com.google.firebase", name = "firebase-database-ktx", version.ref = "firebaseDatabaseKtx" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

@@ -1,25 +1,29 @@
 package activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.RelativeLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.view.menu.MenuAdapter
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.android.volley.toolbox.Volley
 import com.example.hotel.R
 import com.example.hotel.data.CartAdapter
 import com.example.hotel.utils.ConnectionManager
-import com.google.gson.JsonArray
-import com.google.gson.JsonObject
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 import data.CartItem
+import org.json.JSONArray
+import org.json.JSONObject
+import java.util.UUID
+
+()
 
 class CheckOut : AppCompatActivity() {
+
 
     lateinit var toolbar: androidx.appcompat.widget.Toolbar
     lateinit var recyclerView: androidx.recyclerview.widget.RecyclerView
@@ -30,6 +34,18 @@ class CheckOut : AppCompatActivity() {
     lateinit var progressLayout: RelativeLayout
     lateinit var txtOrderingFromText:TextView
 
+    private fun calcualteTotalCost(): Any {
+
+    }
+
+    private fun createNotification(): Void? {
+
+    }
+
+    private fun generateOrderNumber(): Any? {
+
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -38,7 +54,7 @@ class CheckOut : AppCompatActivity() {
         toolbar=findViewById(R.id.toolBar)
         recyclerView=findViewById(R.id.recyclerViewCart)
         txtOrderingFrom= findViewById(R.id.txtOrderingFrom)
-        menuList= mutableListOf()
+      val  menuList= mutableListOf<CartItem>()
         menuAdapter= CartAdapter(this,menuList)
         recyclerView.layoutManager= LinearLayoutManager(this)
         recyclerView.adapter= menuAdapter
@@ -50,27 +66,72 @@ class CheckOut : AppCompatActivity() {
            if(ConnectionManager().checkConnectivity(this)){
                progressLayout.visibility= View.VISIBLE
 
-               try{
+               try {
                    //this defines an empty jsonArray created to representations of the cartItem
-                   val cartDataJson= JsonArray()
+                   //initialize the JSONArray class here
+                   val cartDataJson = JSONArray()
                    //this loop iterates through each cartItem object in the menuList
-                   for(cartItem in menuList){
+                   for (cartItem in menuList) {
                        //in the loop  a new JSON object is created for each Cart Item
-                       val cartItemJson= JsonObject()
-                       //the .addProperty adds key-value pairs to the itemJsonObject
+                       val cartItemJson = JSONObject()// org.json.jsonObject
+                       //the .put adds key-value pairs to the itemJsonObject
                        //mapping the property names to their corresponding values from the cartItem object
-                       cartItemJson.addProperty("id",cartItem.burger.id)
-                       cartItemJson.addProperty("name",cartItem.burger.name)
-                       cartItemJson.addProperty("price",cartItem.burger.price)
-                       cartItemJson.addProperty("quantity",cartItem.quantity)
+                       cartItemJson.put("id", cartItem.burger.id)
+                       cartItemJson.put("name", cartItem.burger.name)
+                       cartItemJson.put("price", cartItem.burger.price)
+                       cartItemJson.put("quantity", cartItem.quantity)
                        //this itemJsonObject is then added to the cartDataJson array
-                       cartDataJson.add(cartItemJson)
+                       cartDataJson.put(cartItemJson)
                    }
-                   val sendOrder=JsonObject()
-                   sendOrder.addProperty("user_id","0")
-                    sendOrder.addProperty("total_cost","totalCost")
-                   sendOrder.add("food",cartDataJson)
-                     val queue= Volley.newRequestQueue(this)
+                   //get the user id from firebase authentication
+                   val currentUser = FirebaseAuth.getInstance().currentUser
+                   val userId = currentUser?.uid
+                   if (userId == null) {
+                       progressLayout.visibility = View.GONE
+                       Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show()
+
+                   }
+
+               val totalCostValue= calcualteTotalCost()
+                   val database= FirebaseDatabase.getInstance()
+                    val ordersRef= database.getReference("orders")
+                   val orderId= UUID.randomUUID().toString()
+                   val orderNumber= generateOrderNumber()
+                    val itemsMap= mutableMapOf<String, Any>()
+                        for (i in 0 until cartDataJson.length()){
+                            val itemJson= cartDataJson.getJSONObject(i)
+                            val itemId= UUID.randomUUID().toString()
+                            itemsMap[itemId]= mapOf(
+                                "burger_name" to itemJson.getString("name"),
+                                "quantity" to itemJson.getInt("quantity"),
+                                "item_cost" to itemJson.getDouble("price") *itemJson.getInt("quantity")
+
+                            )
+
+                        }
+                   val orderData= mapOf("user_id" to userId,
+                            "order_number" to orderNumber,
+                            "total_cost" to totalCostValue,
+                            "items" to itemsMap,
+                            "status" to "placed",
+                            "timestamp" to System.currentTimeMillis()
+                   )
+                   ordersRef.child(orderId).setValue(orderData).addOnSuccessListener{
+                        progressLayout.visibility= View.GONE
+                       Toast.makeText(this, "Order Placed Successfully!",Toast.LENGTH_SHORT).show())
+                      createNotification()
+                       val intent= Intent(this, OrderPlacedSuccessfuly::class.java)
+                       startActivity(intent)
+                       finishAffinity()
+                   }
+                       .addOnFailureListener{
+                           progressLayout.visibility= View.GONE
+                           Toast.makeText(this, "Error placing order!", Toast.LENGTH_SHORT).show()
+
+                       }
+                   }catch (e:Exception){
+                       progressLayout.visibility= View.GONE
+                   Toast.makeText(this, "No internet Connection", Toast.LENGTH_SHORT).show()
                    }
                }
            }

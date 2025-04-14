@@ -21,6 +21,9 @@
         android:theme="@style/Theme.Hotel"
         tools:targetApi="31">
         <activity
+            android:name="activities.OrderPlacedSuccessfuly"
+            android:exported="false" />
+        <activity
             android:name="activities.CheckOut"
             android:exported="false" />
         <activity
