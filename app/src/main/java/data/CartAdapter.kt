@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -12,9 +13,11 @@ import com.example.hotel.R
 import com.example.hotel.databinding.CartCheckoutBinding
 import data.CartItem
 
-class CartAdapter (val context: Context, val cartItems:List<CartItem>): ListAdapter<CartItem,CartAdapter.CartViewHolder>(DiffCallback){
+class CartAdapter (val context: Context,
+                   val cartItems:List<CartItem>): ListAdapter<CartItem,CartAdapter.CartViewHolder>(DiffCallback){
     class CartViewHolder(private val binding:CartCheckoutBinding):RecyclerView.ViewHolder(binding.root) {
         fun bind(cartItem:CartItem){
+            val binding=CartCheckoutBinding.bind(view)
             binding.tvCartItemName.text=cartItem.burger.name
             binding.tvCartItemPrice.text="Ksh.${cartItem.burger.price}"
             binding.tvCartItemQuantity.text="x${cartItem.quantity}"
@@ -29,7 +32,10 @@ class CartAdapter (val context: Context, val cartItems:List<CartItem>): ListAdap
     override fun onBindViewHolder(holder: CartViewHolder, position: Int) {
         val cartItemObject= getItem(position)
         holder.bind(cartItemObject)
+        val addToCartButton= holder.itemView.findViewById<Button>(R.id.btnAddToCart)
+        addToCartButton.setOnClickListener{
 
+        }
     }
 
     override fun getItemCount(): Int {

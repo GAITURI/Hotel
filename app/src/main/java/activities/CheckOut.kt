@@ -34,9 +34,7 @@ class CheckOut : AppCompatActivity() {
     lateinit var progressLayout: RelativeLayout
     lateinit var txtOrderingFromText:TextView
 
-    private fun calcualteTotalCost(): Any {
 
-    }
 
     private fun createNotification(): Void? {
 
@@ -92,7 +90,7 @@ class CheckOut : AppCompatActivity() {
 
                    }
 
-               val totalCostValue= calcualteTotalCost()
+               val totalCostValue= calculateTotalCost()
                    val database= FirebaseDatabase.getInstance()
                     val ordersRef= database.getReference("orders")
                    val orderId= UUID.randomUUID().toString()
@@ -137,5 +135,7 @@ class CheckOut : AppCompatActivity() {
                }
            }
         }
+    private fun calculateTotalCost(): Any {
+
     }
-}
+    }

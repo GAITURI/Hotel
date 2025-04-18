@@ -3,6 +3,7 @@ package com.example.hotel.data
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.hotel.R
@@ -14,7 +15,7 @@ import data.Burgers
 //private var burgers:List<Burgers is the list of burger objectss that the adapter will display
 //the constructor takes a list of burgers as a parameter, the list will be used to populate the recycler view
 //the adapter inherits from the recycler view adapter
-class PizzaDessertAdapter(private val burgers : List<Burgers>) :RecyclerView.Adapter<PizzaDessertAdapter.BurgerViewHolder>(){
+class PizzaDessertAdapter(private val burgers : List<Burgers>, private val onAddToCartClicked:(Burgers)->Unit) :RecyclerView.Adapter<PizzaDessertAdapter.BurgerViewHolder>(){
 private var listData:MutableList<Burgers>  = burgers as MutableList<Burgers>
         var selectedList= mutableListOf<Int>()
 
@@ -43,6 +44,22 @@ private var listData:MutableList<Burgers>  = burgers as MutableList<Burgers>
     }
     override fun onBindViewHolder(holder: BurgerViewHolder, position: Int) {
         holder.bind(burgers[position])
-    }
+            //the listener takes a Burger Object
+        val addToCartButton: Button = holder.itemView.findViewById(R.id.btnAddToCart)
+        addToCartButton.setOnClickListener{
+            updateButtonState(addToCartButton,false)
+            onAddToCartClicked(burgers[position])
 
+        }
+    }
+    private fun updateButtonState(button:Button,isInCart:Boolean){
+        if(isInCart){
+            button.text= button.context.getString(R.string.remove_from_cart)
+            button.setBackgroundResource(R.drawable.remove_from_cart)
+
+        }else{
+            button.text= button.context.getString(R.string.add_to_cart)
+            button.setBackgroundResource(R.drawable.rounded_view_for_menu_red)
+        }
+    }
 }

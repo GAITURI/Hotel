@@ -67,6 +67,10 @@
     <string name="place_order">Place Order</string>
     <string name="order_has_been_placed_successfully">Order Has Been Placed Successfully</string>
     <string name="ok">Ok</string>
+    <string name="remove_from_cart">Remove From Cart</string>
+    <string name="add_to_cart">AddToCart</string>
+    <string name="add_to_cart1">Add to Cart</string>
+    <string name="proceed_to_cart">Proceed to Cart</string>
 
 
 </resources>
