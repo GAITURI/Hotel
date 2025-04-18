@@ -9,16 +9,22 @@ import com.bumptech.glide.Glide
 import com.example.hotel.R
 import com.example.hotel.databinding.ItemsBinding
 import data.Burgers
+import data.CartItem
 
 
 //declare the pizzadessertAdapterClass
 //private var burgers:List<Burgers is the list of burger objectss that the adapter will display
 //the constructor takes a list of burgers as a parameter, the list will be used to populate the recycler view
 //the adapter inherits from the recycler view adapter
-class PizzaDessertAdapter(private val burgers : List<Burgers>, private val onAddToCartClicked:(Burgers)->Unit) :RecyclerView.Adapter<PizzaDessertAdapter.BurgerViewHolder>(){
+class PizzaDessertAdapter(private val burgers : List<Burgers>, private val onAddToCartClicked:(cartItem:CartItem)->Unit) :RecyclerView.Adapter<PizzaDessertAdapter.BurgerViewHolder>(){
 private var listData:MutableList<Burgers>  = burgers as MutableList<Burgers>
         var selectedList= mutableListOf<Int>()
-
+    private var cartItems: ArrayList<CartItem> = ArrayList()
+fun updateCartItems(newCartItems:ArrayList<CartItem>)
+{
+    cartItems= newCartItems
+    notifyDataSetChanged()
+}
     inner class BurgerViewHolder(val view:View):RecyclerView.ViewHolder(view){
         fun bind(burger:Burgers){
             //get the reference to the views in the items.xml layout file
@@ -47,8 +53,9 @@ private var listData:MutableList<Burgers>  = burgers as MutableList<Burgers>
             //the listener takes a Burger Object
         val addToCartButton: Button = holder.itemView.findViewById(R.id.btnAddToCart)
         addToCartButton.setOnClickListener{
+            val cartItem= CartItem(burgers[position].id,burgers[position].name,burgers[position])
             updateButtonState(addToCartButton,false)
-            onAddToCartClicked(burgers[position])
+            onAddToCartClicked(cartItem)
 
         }
     }
