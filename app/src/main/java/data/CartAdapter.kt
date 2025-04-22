@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.compose.animation.core.infiniteRepeatable
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -15,9 +16,15 @@ import data.CartItem
 
 class CartAdapter (val context: Context,
                    val cartItems:List<CartItem>): ListAdapter<CartItem,CartAdapter.CartViewHolder>(DiffCallback){
+
+        init{
+            submitList(cartItems)
+        }
+
+
     class CartViewHolder(private val binding:CartCheckoutBinding):RecyclerView.ViewHolder(binding.root) {
         fun bind(cartItem:CartItem){
-            val binding=CartCheckoutBinding.bind(view)
+            val binding=CartCheckoutBinding.bind(itemView)
             binding.tvCartItemName.text=cartItem.burger.name
             binding.tvCartItemPrice.text="Ksh.${cartItem.burger.price}"
             binding.tvCartItemQuantity.text="x${cartItem.quantity}"

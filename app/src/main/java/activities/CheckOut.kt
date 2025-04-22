@@ -20,7 +20,6 @@ import org.json.JSONArray
 import org.json.JSONObject
 import java.util.UUID
 
-()
 
 class CheckOut : AppCompatActivity() {
 
@@ -33,30 +32,42 @@ class CheckOut : AppCompatActivity() {
     lateinit var txtOrderingFrom:TextView
     lateinit var progressLayout: RelativeLayout
     lateinit var txtOrderingFromText:TextView
+    lateinit var txtTotalCost:TextView
 
+//will confirm to customer that order has been placed
 
-
-    private fun createNotification(): Void? {
-
-    }
-
+    private fun calculateTotalCost(): Double {
+        var totalCost = 0.0
+        for (cartItem in menuList) {
+            val itemCost = cartItem.burger?.price?. times (cartItem.quantity)?:0.0
+            totalCost += itemCost
+        }
+        return totalCost
+        }
+//implementing the order number generation logic
     private fun generateOrderNumber(): Any? {
-
+        return UUID.randomUUID().toString().substring(0,8)
+    //our first 8 characters are the order number
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        //initializiation of UI elements within the onCreate method
         setContentView(R.layout.activity_check_out)
         btnPlaceOrder= findViewById(R.id.btnPlaceOrder)
         toolbar=findViewById(R.id.toolBar)
         recyclerView=findViewById(R.id.recyclerViewCart)
         txtOrderingFrom= findViewById(R.id.txtOrderingFrom)
-      val  menuList= mutableListOf<CartItem>()
+        var menuList= mutableListOf<CartItem>()
         menuAdapter= CartAdapter(this,menuList)
         recyclerView.layoutManager= LinearLayoutManager(this)
         recyclerView.adapter= menuAdapter
 
+//calculate and display total cost
+        val totalCost= calculateTotalCost()
+
+        btnPlaceOrder.text= "Place Order ($totalCost)"
 
 
 
@@ -116,8 +127,7 @@ class CheckOut : AppCompatActivity() {
                    )
                    ordersRef.child(orderId).setValue(orderData).addOnSuccessListener{
                         progressLayout.visibility= View.GONE
-                       Toast.makeText(this, "Order Placed Successfully!",Toast.LENGTH_SHORT).show())
-                      createNotification()
+                       Toast.makeText(this, "Order Placed Successfully!",Toast.LENGTH_SHORT).show()
                        val intent= Intent(this, OrderPlacedSuccessfuly::class.java)
                        startActivity(intent)
                        finishAffinity()
@@ -127,15 +137,15 @@ class CheckOut : AppCompatActivity() {
                            Toast.makeText(this, "Error placing order!", Toast.LENGTH_SHORT).show()
 
                        }
+
                    }catch (e:Exception){
                        progressLayout.visibility= View.GONE
                    Toast.makeText(this, "No internet Connection", Toast.LENGTH_SHORT).show()
                    }
                //other functions
+
                }
            }
         }
-    private fun calculateTotalCost(): Any {
 
-    }
     }

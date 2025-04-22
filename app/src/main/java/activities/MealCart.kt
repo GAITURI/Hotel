@@ -4,7 +4,9 @@ package activities
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
+import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -29,86 +31,75 @@ class MealCart :AppCompatActivity() {
     private val cartRequestCode=123
 //this function handles starting the activity
     //we update it based on the changes made in checkout
-private val checkOutResultLauncher= registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
-    if (result.resultCode == Activity.RESULT_OK) {
-        val data: Intent? = result.data
-        val updatedCart = data?.getParcelableArrayListExtra<CartItem>("updatedCart")
-        if (updatedCart != null) {
-            updateCartItems(updatedCart)
-            updateAdapterButtonStates(updatedCart)
-
-        }
-
-    }
-
-}
-    private fun updateCartItems(updatedCart: ArrayList<CartItem>) {
-        for(updatedItem in updatedCart){
-          val existingItemIndex= cartItems.indexOfFirst{it.productId==updatedItem.productId}
-            if(existingItemIndex != -1){
-                //update existing item
-                cartItems[existingItemIndex]=updatedItem
-            }else{
-                cartItems.add(updatedItem)
-            }
-        }
-        cartItems.removeAll{item-> updatedCart.none{it.productId==item.productId}}}
-
-
-    private fun updateAdapterButtonStates(updatedCart: ArrayList<CartItem>) {
-        (recyclerView.adapter as? PizzaDessertAdapter)?.let { adapter->
-            adapter.updateCartItems(updatedCart)
-        }
-
-    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mealcart)
-    proceedToCart=findViewById(R.id.btnProceedToCart)
+        proceedToCart = findViewById(R.id.btnProceedToCart)
         manager = LinearLayoutManager(this)
-
+        getAllData()
+    }
 //fetching data from the api
-        fun getAllData() {
+     private  fun getAllData() {
             //get an instance of our API SERVICE Through the retrofitInstance Object
             val apiService = RetrofitInstance.api
     //make an asynchronous call to the APi to get a list of burgers, which uses an anonymous callback to handle the response
             val call = apiService.getAllBurgers().enqueue(object : Callback<List<Burgers>> {
-                override fun onResponse(
-                    call: Call<List<Burgers>>,
-                    response: Response<List<Burgers>>
-                ) {
+                override fun onResponse(call: Call<List<Burgers>>, response: Response<List<Burgers>>) {
                     if (response.isSuccessful) {
                         //initialize our recyclerview and applying configurations within the apply block
                         //we create and set the pizzaDessertAdapter for the recyclerview
-                        recyclerView = findViewById<RecyclerView>(R.id.pizzaDessertRecyclerView).apply {
-                                adapter = PizzaDessertAdapter(burgers = response.body()!!) {
-                                    cartItem->
-                                        val intent = Intent(this@MealCart, CheckOut::class.java)
-                                        intent.putExtra("cartItem", cartItem)
-                                       checkOutResultLauncher.launch(intent)
-                                    }
-                                layoutManager = manager
-                                adapter = adapter
-                            }
+                        val burgers = response.body() ?: emptyList()
+                        setUpRecyclerView(burgers)
+                    }else{
+                        Log.e("API Error", "Response not successful: ${response.code()}")
 
-                        proceedToCart.setOnClickListener {
-                            val intent = Intent(this@MealCart, CheckOut::class.java)
-                            startActivityForResult(intent, cartRequestCode)
-                        }
                     }
                 }
-
                 override fun onFailure(call: Call<List<Burgers>>, t: Throwable) {
-                    TODO("Not yet implemented")
+                    Log.e("API Error", "Network request failed: ${t.message}")
                 }
-
             })
+
+        }
+        private fun setUpRecyclerView(burgers:List<Burgers>){
+            adapter= PizzaDessertAdapter(burgers= burgers){ cartItem ->
+                val existingItemIndex= cartItems.indexOfFirst{it.productId== cartItem.productId }
+                if(existingItemIndex != -1){
+                    cartItems[existingItemIndex].quantity +=1
+
+            }else{
+                cartItems.add(cartItem.copy(quantity=1))
+
+            }
+        }
+            recyclerView.apply{
+                layoutManager= manager
+                adapter= this@MealCart.adapter
+            }
+            proceedToCart.setOnClickListener{
+                goToCheckout()
+            }
+    }
+    private fun goToCheckout(){
+        if(cartItems.isNotEmpty()){
+            val intent= Intent(this, CheckOut::class.java)
+            intent.putParcelableArrayListExtra("cartItems",ArrayList(cartItems))
+            startActivity(intent)
+        }else{
+            Toast.makeText(this, "Your cart is empty", Toast.LENGTH_SHORT).show()
         }
     }
 
 
-
-
     }
+//the goToCheckout function is the only launch point
+//in setting up the recycler view the lambda function is called
+//the correct flow is
+// 1)user clicks addtocart on an item in the recycler view
+//the pizzadessertadapter click listener calls the lambda in the mealcart.kt
+//the lambda updated the cartItemList
+//user clicks proceed to cart
+//go to checkout is  called
+//checkout activity is launched with the entire cartItemsList

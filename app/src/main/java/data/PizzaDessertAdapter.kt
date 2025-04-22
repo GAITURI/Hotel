@@ -16,7 +16,7 @@ import data.CartItem
 //private var burgers:List<Burgers is the list of burger objectss that the adapter will display
 //the constructor takes a list of burgers as a parameter, the list will be used to populate the recycler view
 //the adapter inherits from the recycler view adapter
-class PizzaDessertAdapter(private val burgers : List<Burgers>, private val onAddToCartClicked:(cartItem:CartItem)->Unit) :RecyclerView.Adapter<PizzaDessertAdapter.BurgerViewHolder>(){
+class PizzaDessertAdapter(private val burgers : List<Burgers>, private val onAddToCartClicked:(CartItem)->Unit) :RecyclerView.Adapter<PizzaDessertAdapter.BurgerViewHolder>(){
 private var listData:MutableList<Burgers>  = burgers as MutableList<Burgers>
         var selectedList= mutableListOf<Int>()
     private var cartItems: ArrayList<CartItem> = ArrayList()
@@ -52,8 +52,14 @@ fun updateCartItems(newCartItems:ArrayList<CartItem>)
         holder.bind(burgers[position])
             //the listener takes a Burger Object
         val addToCartButton: Button = holder.itemView.findViewById(R.id.btnAddToCart)
+        //the onAddToCartClicked Lambda function is called when the button is clicked
+        //inside the addtocartbutton.setOnClicklistener block a CartItem object is created
         addToCartButton.setOnClickListener{
-            val cartItem= CartItem(burgers[position].id,burgers[position].name,burgers[position])
+            val productId= burgers[position].id
+            val name=burgers[position].name
+            val price= burgers[position].price
+            val burgers= burgers[position]
+            val cartItem= CartItem(burger = burgers, quantity = 0, productId = productId, name = name)
             updateButtonState(addToCartButton,false)
             onAddToCartClicked(cartItem)
 
@@ -70,3 +76,4 @@ fun updateCartItems(newCartItems:ArrayList<CartItem>)
         }
     }
 }
+//the adapter's job is only to notify the mealcartactivity about the item click, not to start a new activity
