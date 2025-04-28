@@ -1,64 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="16dp"
-    android:layout_marginVertical="8dp"
-    app:cardCornerRadius="8dp"
-    app:cardElevation="20dp">
+    android:layout_marginStart="8dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginEnd="8dp"
+    android:background="@drawable/card">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <!-- To display item quantity -->
+    <ImageView
+        android:id="@+id/ivCartItemImage"
+        android:layout_width="160dp"
+        android:layout_height="90dp"
+        android:contentDescription="checkout"
+        android:src="@drawable/meal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/ibDelete" />
+
+    <TextView
+        android:id="@+id/tvCartItemName"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="16dp"
-        android:gravity="center_vertical">
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="24dp"
+        android:text="Item"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/txtTotalCostTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/ivCartItemImage"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/meal"
-            android:layout_marginEnd="16dp"
-            android:contentDescription="CartImage" />
+    <TextView
+        android:id="@+id/tvCartItemQuantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Quantity: 5"
+        android:textColor="@color/white"
+        android:textStyle="italic"
+        app:layout_constraintStart_toStartOf="@+id/tvCartItemName"
+        app:layout_constraintTop_toBottomOf="@+id/tvCartItemName" />
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
+    <!-- To display item price -->
+    <TextView
+        android:id="@+id/tvCartItemPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="Price: ₹10"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/tvCartItemQuantity"
+        app:layout_constraintStart_toEndOf="@+id/tvCartItemQuantity"
+        app:layout_constraintTop_toTopOf="@+id/tvCartItemQuantity" />
 
-            <TextView
-                android:id="@+id/tvCartItemName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Burger Name"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="@color/md_black_1000" />
+    <ImageButton
+        android:id="@+id/ibDelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:backgroundTint="@android:color/transparent"
+        android:src="@drawable/ic_action_delete"
+        app:layout_constraintBottom_toTopOf="@+id/txtItemTotalCost"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/white" />
 
-            <TextView
-                android:id="@+id/tvCartItemPrice"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/cartitemprice"
-                android:textSize="14sp"
-                android:textColor="@color/md_black_1000"
-                /> <!-- Initially hidden -->
+    <!-- To display total cost of grocery items -->
+    <TextView
+        android:id="@+id/txtItemTotalCost"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:background="@drawable/cost_card"
+        android:text="200"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-        </LinearLayout>
+    <!-- This text view is used to add statement for total cost -->
+    <TextView
+        android:id="@+id/txtTotalCostTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="Total Cost:"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tvCartItemName"
+        app:layout_constraintTop_toBottomOf="@+id/tvCartItemQuantity" />
 
-        <TextView
-            android:id="@+id/tvCartItemQuantity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="x2"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="@color/md_black_1000" />
-
-    </LinearLayout>
-
-</androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

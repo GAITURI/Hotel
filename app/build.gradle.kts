@@ -73,12 +73,14 @@ dependencies {
     implementation(libs.okhttp)
     implementation(libs.logging.interceptor)
     implementation(libs.glide)
-    implementation("androidx.room:room-runtime:2.6.1")
-    implementation("androidx.room:room-ktx:2.6.1")
+    implementation(libs.okhttp3.integration)
+    implementation("androidx.room:room-runtime:2.7.1")
+    implementation("androidx.room:room-ktx:2.7.1")
     implementation(libs.volley)
     implementation(libs.firebase.database.ktx)
-    annotationProcessor("androidx.room:room-compiler:2.6.1")
-
+    implementation(libs.litert.metadata)
+    annotationProcessor(libs.androidx.room.compiler)
+    annotationProcessor(libs.glide.compiler)
 
     // Firebase
     implementation(libs.firebase.auth)

@@ -16,7 +16,7 @@ import data.CartItem
 //private var burgers:List<Burgers is the list of burger objectss that the adapter will display
 //the constructor takes a list of burgers as a parameter, the list will be used to populate the recycler view
 //the adapter inherits from the recycler view adapter
-class PizzaDessertAdapter(private val burgers : List<Burgers>, private val onAddToCartClicked:(CartItem)->Unit) :RecyclerView.Adapter<PizzaDessertAdapter.BurgerViewHolder>(){
+class PizzaDessertAdapter(var burgers : MutableList<Burgers>, private val onAddToCartClicked:(CartItem)->Unit) :RecyclerView.Adapter<PizzaDessertAdapter.BurgerViewHolder>(){
 private var listData:MutableList<Burgers>  = burgers as MutableList<Burgers>
         var selectedList= mutableListOf<Int>()
     private var cartItems: ArrayList<CartItem> = ArrayList()
@@ -27,12 +27,14 @@ fun updateCartItems(newCartItems:ArrayList<CartItem>)
 }
     inner class BurgerViewHolder(val view:View):RecyclerView.ViewHolder(view){
         fun bind(burger:Burgers){
+
             //get the reference to the views in the items.xml layout file
             val binding= ItemsBinding.bind(view)
             binding.tvTitle.text=burger.name
             binding.tvPrice.text=burger.price.toString()
-            Glide.with(view.context)
-                .load(burger.images)
+            val imageSize= burger.images.firstOrNull()?.sm
+            Glide.with(binding.root.context)
+                .load(imageSize)
                 .placeholder(R.drawable.meal)
                 .centerCrop()
                 .into(binding.imageView)
@@ -42,6 +44,7 @@ fun updateCartItems(newCartItems:ArrayList<CartItem>)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BurgerViewHolder {
         val v=LayoutInflater.from(parent.context).inflate(R.layout.items,parent,false)
+
         return BurgerViewHolder(v)
     }
 
@@ -49,17 +52,15 @@ fun updateCartItems(newCartItems:ArrayList<CartItem>)
         return burgers.size
     }
     override fun onBindViewHolder(holder: BurgerViewHolder, position: Int) {
-        holder.bind(burgers[position])
+        val burger= burgers[position]
+        holder.bind(burger)
             //the listener takes a Burger Object
         val addToCartButton: Button = holder.itemView.findViewById(R.id.btnAddToCart)
         //the onAddToCartClicked Lambda function is called when the button is clicked
         //inside the addtocartbutton.setOnClicklistener block a CartItem object is created
         addToCartButton.setOnClickListener{
-            val productId= burgers[position].id
-            val name=burgers[position].name
-            val price= burgers[position].price
-            val burgers= burgers[position]
-            val cartItem= CartItem(burger = burgers, quantity = 0, productId = productId, name = name)
+
+            val cartItem= CartItem(burger = burger)
             updateButtonState(addToCartButton,false)
             onAddToCartClicked(cartItem)
 

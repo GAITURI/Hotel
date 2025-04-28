@@ -59,7 +59,7 @@ class CheckOut : AppCompatActivity() {
         toolbar=findViewById(R.id.toolBar)
         recyclerView=findViewById(R.id.recyclerViewCart)
         txtOrderingFrom= findViewById(R.id.txtOrderingFrom)
-        var menuList= mutableListOf<CartItem>()
+         menuList= intent.getParcelableArrayListExtra<CartItem>("cartItems")?: emptyList()
         menuAdapter= CartAdapter(this,menuList)
         recyclerView.layoutManager= LinearLayoutManager(this)
         recyclerView.adapter= menuAdapter

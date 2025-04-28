@@ -25,7 +25,7 @@ class MealCart :AppCompatActivity() {
     //private lateinit var declares private, non-nullable properties that can be initalized later
     private lateinit var recyclerView: RecyclerView
     private lateinit var manager: RecyclerView.LayoutManager
-    private lateinit var adapter: RecyclerView.Adapter<*>
+    private lateinit var adapter: PizzaDessertAdapter
     private lateinit var proceedToCart: Button
     private val cartItems=ArrayList<CartItem>()
     private val cartRequestCode=123
@@ -36,8 +36,27 @@ class MealCart :AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mealcart)
+
+        recyclerView=findViewById(R.id.pizzaDessertRecyclerView)
         proceedToCart = findViewById(R.id.btnProceedToCart)
-        manager = LinearLayoutManager(this)
+        manager= LinearLayoutManager(this)
+        recyclerView.layoutManager= manager
+        //this refers to the instance of pizzadessertadapter created in mealcart activity
+        adapter= PizzaDessertAdapter(burgers= mutableListOf()){
+            cartItem ->
+            val existingItemIndex= cartItems.indexOfFirst{it.burger.id== cartItem.burger.id }
+            if(existingItemIndex != -1){
+                cartItems[existingItemIndex].quantity +=1
+
+            }else{
+                cartItems.add(cartItem.copy(quantity=1))
+
+            }
+        }
+        recyclerView.adapter= adapter
+        proceedToCart.setOnClickListener{
+                goToCheckout()
+            }
         getAllData()
     }
 //fetching data from the api
@@ -64,23 +83,15 @@ class MealCart :AppCompatActivity() {
 
         }
         private fun setUpRecyclerView(burgers:List<Burgers>){
-            adapter= PizzaDessertAdapter(burgers= burgers){ cartItem ->
-                val existingItemIndex= cartItems.indexOfFirst{it.productId== cartItem.productId }
-                if(existingItemIndex != -1){
-                    cartItems[existingItemIndex].quantity +=1
+            //.burgers is a property(variable) within the pizzadessertadapter class
+            //its a List<Burgers> that holds the actual data(the list of burger objects)that the adapter will use to populate the recyclerview
+            //= burgers refers to the List<Burgers> received from the API CALL IN THE GET
+            //ITS THE NEW LIST OF BURGERS THAT WE WANT TO DISPLAY
+           adapter.burgers= burgers.toMutableList()
+            adapter.notifyDataSetChanged()
 
-            }else{
-                cartItems.add(cartItem.copy(quantity=1))
 
-            }
-        }
-            recyclerView.apply{
-                layoutManager= manager
-                adapter= this@MealCart.adapter
-            }
-            proceedToCart.setOnClickListener{
-                goToCheckout()
-            }
+
     }
     private fun goToCheckout(){
         if(cartItems.isNotEmpty()){

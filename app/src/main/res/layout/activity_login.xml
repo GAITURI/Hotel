@@ -60,6 +60,7 @@
                 android:visibility="visible"
                 android:autofillHints="emailAddress"
                 android:padding="8dp"
+                android:textColor="@color/black"
                 android:textStyle="normal"
                 android:textColorHint="@color/black" />
 
@@ -74,6 +75,7 @@
                 android:drawableStart="@drawable/baseline_lock_24"
                 android:drawablePadding="8dp"
                 android:hint="@string/password"
+                android:textColor="@color/black"
                 android:inputType="textPassword"
                 android:textColorHint="@color/black" />
 

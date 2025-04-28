@@ -37,9 +37,6 @@
             android:exported="false"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
-            android:name=".ui.theme.GymActivity"
-            android:exported="false" />
-        <activity
             android:name="activities.BookingActivity"
             android:exported="false" />
         <activity

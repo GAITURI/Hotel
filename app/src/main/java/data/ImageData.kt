@@ -14,3 +14,8 @@ data class ImageObject(
     val sm:String?,
     val lg:String?
 ):Parcelable
+
+@Parcelize
+data class ImageSize(
+    val sm:String?=null
+):Parcelable
