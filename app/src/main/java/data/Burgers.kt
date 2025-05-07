@@ -9,10 +9,8 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class Burgers(
   val id:Int,
-  val name:String,
-  val price:Double,
-  val images:List<ImageSize> = emptyList(),
-  val description:String,
-  val data:List<Burgers> = emptyList()
-
+  val name:String?,
+  val price:Double?,
+  val images:List<ImageSize>?,
+  val description:String?
 ):Parcelable

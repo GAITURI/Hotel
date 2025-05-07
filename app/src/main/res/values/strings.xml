@@ -71,6 +71,7 @@
     <string name="add_to_cart">AddToCart</string>
     <string name="add_to_cart1">Add to Cart</string>
     <string name="proceed_to_cart">Proceed to Cart</string>
+    <string name="booking">Booking</string>
 
 
 </resources>

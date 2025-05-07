@@ -79,6 +79,7 @@ dependencies {
     implementation(libs.volley)
     implementation(libs.firebase.database.ktx)
     implementation(libs.litert.metadata)
+    implementation(libs.play.services.base)
     annotationProcessor(libs.androidx.room.compiler)
     annotationProcessor(libs.glide.compiler)
 

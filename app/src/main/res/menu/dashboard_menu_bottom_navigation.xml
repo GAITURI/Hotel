@@ -1,27 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android">
 <item
-    android:id="@+id/search_badge"
-    android:icon="@drawable/ic_search_24dp"
-    android:title="@string/search"/>
+    android:id="@+id/bookingActivity"
+    android:icon="@drawable/baseline_bookmark_24"
+    android:title="@string/booking"/>
 <item
-    android:id="@+id/favorite_location_badge"
-    android:icon="@drawable/baseline_edit_location_24"
-    android:title="@string/current_location"/>
+    android:id="@+id/mealCartActivity"
+    android:icon="@drawable/baseline_cake_24"
+    android:title="@string/breakfast"/>
 
     <item
-        android:id="@+id/BookedServices"
-        android:icon="@drawable/baseline_bookmark_24"
-        android:title="@string/bookedservices"/>
+        android:id="@+id/checkOutActivity"
+        android:icon="@drawable/baseline_add_shopping_cart_24"
+        android:title="@string/proceed_to_cart"/>
 
-    <item
-        android:id="@+id/profile_badge"
-        android:icon="@drawable/ic_person"
-        android:title="@string/profile"/>
-    <item
-        android:id="@+id/chat_badge"
-        android:icon="@drawable/baseline_chat_24"
-        android:title="@string/chat"/>
 
 </menu>
 

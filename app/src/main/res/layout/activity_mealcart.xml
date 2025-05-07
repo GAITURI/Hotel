@@ -1,32 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
 
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     android:background="@drawable/background"
+    android:id="@+id/mealCartActivity"
     tools:context="activities.MealCart">
 
 <androidx.recyclerview.widget.RecyclerView
     android:layout_width="match_parent"
-    android:layout_height="0dp"
+    android:layout_height="match_parent"
+    android:layout_above="@+id/bottom_navigation"
     android:id="@+id/pizzaDessertRecyclerView"
     android:layout_margin="5dp"
-    android:layout_weight="1.7"
     tools:listitem="@layout/items"
 />
 
-    <Button
-        android:id="@+id/btnProceedToCart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-       android:layout_marginTop="15dp"
-        android:layout_gravity="bottom"
-        android:layout_marginStart="160dp"
-        android:text="@string/proceed_to_cart" />
+<com.google.android.material.bottomnavigation.BottomNavigationView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/bottom_navigation"
+    android:layout_alignParentBottom="true"
+    app:menu="@menu/dashboard_menu_bottom_navigation"/>
 
-
-</LinearLayout>
+</RelativeLayout>

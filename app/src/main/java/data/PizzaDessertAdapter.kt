@@ -17,14 +17,8 @@ import data.CartItem
 //the constructor takes a list of burgers as a parameter, the list will be used to populate the recycler view
 //the adapter inherits from the recycler view adapter
 class PizzaDessertAdapter(var burgers : MutableList<Burgers>, private val onAddToCartClicked:(CartItem)->Unit) :RecyclerView.Adapter<PizzaDessertAdapter.BurgerViewHolder>(){
-private var listData:MutableList<Burgers>  = burgers as MutableList<Burgers>
-        var selectedList= mutableListOf<Int>()
-    private var cartItems: ArrayList<CartItem> = ArrayList()
-fun updateCartItems(newCartItems:ArrayList<CartItem>)
-{
-    cartItems= newCartItems
-    notifyDataSetChanged()
-}
+
+
     inner class BurgerViewHolder(val view:View):RecyclerView.ViewHolder(view){
         fun bind(burger:Burgers){
 
@@ -32,7 +26,7 @@ fun updateCartItems(newCartItems:ArrayList<CartItem>)
             val binding= ItemsBinding.bind(view)
             binding.tvTitle.text=burger.name
             binding.tvPrice.text=burger.price.toString()
-            val imageSize= burger.images.firstOrNull()?.sm
+            val imageSize= burger.images?.firstOrNull()?.sm
             Glide.with(binding.root.context)
                 .load(imageSize)
                 .placeholder(R.drawable.meal)

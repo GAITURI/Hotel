@@ -10,12 +10,12 @@ import androidx.compose.animation.core.infiniteRepeatable
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.hotel.R
 import com.example.hotel.databinding.CartCheckoutBinding
 import data.CartItem
 
-class CartAdapter (val context: Context,
-                   val cartItems:List<CartItem>): ListAdapter<CartItem,CartAdapter.CartViewHolder>(DiffCallback){
+class CartAdapter (val context: Context, val cartItems:List<CartItem>): ListAdapter<CartItem,CartAdapter.CartViewHolder>(DiffCallback){
 
         init{
             submitList(cartItems)
@@ -28,6 +28,12 @@ class CartAdapter (val context: Context,
             binding.tvCartItemName.text=cartItem.burger.name
             binding.tvCartItemPrice.text="Ksh.${cartItem.burger.price}"
             binding.tvCartItemQuantity.text="x${cartItem.quantity}"
+            val imageSize= cartItem.burger.images?.firstOrNull()?.sm
+            Glide.with(binding.root.context)
+                .load(imageSize)
+                .placeholder(R.drawable.meal)
+                .centerCrop()
+                .into(binding.ivCartItemImage)
         }
     }
 
@@ -39,10 +45,7 @@ class CartAdapter (val context: Context,
     override fun onBindViewHolder(holder: CartViewHolder, position: Int) {
         val cartItemObject= getItem(position)
         holder.bind(cartItemObject)
-        val addToCartButton= holder.itemView.findViewById<Button>(R.id.btnAddToCart)
-        addToCartButton.setOnClickListener{
-
-        }
+        
     }
 
     override fun getItemCount(): Int {

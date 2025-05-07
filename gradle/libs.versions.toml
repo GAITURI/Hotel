@@ -38,6 +38,7 @@ picasso = "2.71828"
 volley = "1.2.1"
 firebaseDatabaseKtx = "21.0.0"
 litertMetadata = "1.2.0"
+playServicesBase = "18.0.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -87,6 +88,7 @@ picasso = { group = "com.squareup.picasso", name = "picasso", version.ref = "pic
 volley = { group = "com.android.volley", name = "volley", version.ref = "volley" }
 firebase-database-ktx = { group = "com.google.firebase", name = "firebase-database-ktx", version.ref = "firebaseDatabaseKtx" }
 litert-metadata = { group = "com.google.ai.edge.litert", name = "litert-metadata", version.ref = "litertMetadata" }
+play-services-base = { group = "com.google.android.gms", name = "play-services-base", version.ref = "playServicesBase" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
