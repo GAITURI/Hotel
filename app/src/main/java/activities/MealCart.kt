@@ -1,12 +1,15 @@
 package activities
 
 
+import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -140,6 +143,21 @@ class MealCart :AppCompatActivity() {
 
 
     }
+//using ActivityResult API for navigating to checkout and potentially receiving a result
+    private val checkOutActivityResultLauncher=registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()){
+        result->
+        if(result.resultCode== Activity.RESULT_OK){
+            //CHECKOUT IS FINISHES AND THE USER INDICATES THEY WANT TO ADD MORE ITEMS
+            //THEY ARE NOW BACK ON THE MEALCART SCRENN
+            //THE CARTITEMS LIST IN MEALCART STILL HOLDS THE ITEMS THEY HAD BEFORE
+            //THEY CAN NOW ADD MORE ITEMS TO THIS LIST BY INTERACTING WITH THE UI
+            Log.d("MealCart","Returned from Checkout with RESULT_OK. User can add more items.")
+        } else{
+            Log.d("MealCart","Returned from checkout with result code: ${result.resultCode}")
+        }
+}
+
     private fun goToCheckout(){
         if(cartItems.isNotEmpty()){
             for(cartItem in cartItems){
@@ -160,12 +178,17 @@ class MealCart :AppCompatActivity() {
             }
             val intent= Intent(this, CheckOut::class.java)
             intent.putParcelableArrayListExtra("cartItems",ArrayList(cartItems))
-            startActivity(intent)
+           checkOutActivityResultLauncher.launch(intent)
         }else{
             Toast.makeText(this, "Your cart is empty", Toast.LENGTH_SHORT).show()
         }
     }
 
+    @Deprecated("This method has been deprecated in favor of using the\n      {@link OnBackPressedDispatcher} via {@link #getOnBackPressedDispatcher()}.\n      The OnBackPressedDispatcher controls how back button events are dispatched\n      to one or more {@link OnBackPressedCallback} objects.")
+    @SuppressLint("MissingSuperCall")
+    override fun onBackPressed() {
+        showCancelOrderDialog()
+    }
 
     }
 //the goToCheckout function is the only launch point

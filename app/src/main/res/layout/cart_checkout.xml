@@ -12,10 +12,12 @@
     <!-- To display item quantity -->
     <ImageView
         android:id="@+id/ivCartItemImage"
-        android:layout_width="160dp"
-        android:layout_height="90dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:contentDescription="checkout"
         android:src="@drawable/meal"
+        android:scaleType="centerCrop"
+        app:layout_constraintVertical_bias="0.0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/ibDelete" />
 
@@ -23,12 +25,12 @@
         android:id="@+id/tvCartItemName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="24dp"
         android:text="Item"
         android:textColor="@color/white"
-        android:textSize="24sp"
+        android:textSize="10sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/txtTotalCostTitle"
         app:layout_constraintStart_toStartOf="parent"
@@ -60,15 +62,15 @@
         android:id="@+id/ibDelete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
+        android:layout_marginEnd="8dp"
         android:backgroundTint="@android:color/transparent"
         android:src="@drawable/ic_action_delete"
-        app:layout_constraintBottom_toTopOf="@+id/txtItemTotalCost"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvCartItemName"
+        app:layout_constraintBottom_toBottomOf="@+id/tvCartItemQuantity"
         app:tint="@color/white" />
 
-    <!-- To display total cost of grocery items -->
+    <!-- To display total cost of burger items -->
     <TextView
         android:id="@+id/txtItemTotalCost"
         android:layout_width="wrap_content"

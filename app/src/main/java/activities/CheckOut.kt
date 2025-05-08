@@ -1,5 +1,6 @@
 package activities
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -8,6 +9,7 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.hotel.R
@@ -30,7 +32,6 @@ class CheckOut : AppCompatActivity() {
     lateinit var menuAdapter: CartAdapter
     lateinit var menuList: List<CartItem>
     lateinit var txtOrderingFrom:TextView
-    lateinit var progressLayout: RelativeLayout
     lateinit var txtOrderingFromText:TextView
     lateinit var txtTotalCost:TextView
 
@@ -73,7 +74,6 @@ class CheckOut : AppCompatActivity() {
 
         btnPlaceOrder.setOnClickListener{
            if(ConnectionManager().checkConnectivity(this)){
-               progressLayout.visibility= View.VISIBLE
 
                try {
                    //this defines an empty jsonArray created to representations of the cartItem
@@ -96,7 +96,7 @@ class CheckOut : AppCompatActivity() {
                    val currentUser = FirebaseAuth.getInstance().currentUser
                    val userId = currentUser?.uid
                    if (userId == null) {
-                       progressLayout.visibility = View.GONE
+
                        Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show()
 
                    }
@@ -126,20 +126,18 @@ class CheckOut : AppCompatActivity() {
                             "timestamp" to System.currentTimeMillis()
                    )
                    ordersRef.child(orderId).setValue(orderData).addOnSuccessListener{
-                        progressLayout.visibility= View.GONE
+
                        Toast.makeText(this, "Order Placed Successfully!",Toast.LENGTH_SHORT).show()
                        val intent= Intent(this, OrderPlacedSuccessfuly::class.java)
                        startActivity(intent)
                        finishAffinity()
                    }
                        .addOnFailureListener{
-                           progressLayout.visibility= View.GONE
                            Toast.makeText(this, "Error placing order!", Toast.LENGTH_SHORT).show()
 
                        }
 
                    }catch (e:Exception){
-                       progressLayout.visibility= View.GONE
                    Toast.makeText(this, "No internet Connection", Toast.LENGTH_SHORT).show()
                    }
                //other functions
@@ -147,5 +145,24 @@ class CheckOut : AppCompatActivity() {
                }
            }
         }
+    override fun onBackPressed(){
+        AlertDialog.Builder(this)
+            .setTitle("Add More Items?")
+            .setMessage("Do you want to add more items or Continue with Current List?")
+            .setPositiveButton("Add to Cart"){
+                dialog, which->
+                setResult(Activity.RESULT_OK)
+                super.onBackPressed()
+            }
+            .setNegativeButton("Continue with Order"){
+                dialog, which->
+                dialog.dismiss()
+            }
+            .setNeutralButton("Cancel"){
+                dialog, which->
+                dialog.dismiss()
+            }
+            .show()
+    }
 
     }
