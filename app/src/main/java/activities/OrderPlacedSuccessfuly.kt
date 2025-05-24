@@ -13,12 +13,12 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.hotel.R
 
 class OrderPlacedSuccessfuly : AppCompatActivity(){
-        lateinit var orderPlacedSuccessfuly: OrderPlacedSuccessfuly
+        lateinit var rootLayout: RelativeLayout
         lateinit var btnOkay:Button
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_order_placed_successfuly)
-        orderPlacedSuccessfuly= findViewById(R.id.main)
+        rootLayout= findViewById(R.id.orderPlaced)
         btnOkay= findViewById(R.id.btnOkaySuccess)
 
         btnOkay.setOnClickListener{

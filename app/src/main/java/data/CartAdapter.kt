@@ -15,7 +15,7 @@ import com.example.hotel.R
 import com.example.hotel.databinding.CartCheckoutBinding
 import data.CartItem
 
-class CartAdapter (val context: Context, val cartItems:List<CartItem>): ListAdapter<CartItem,CartAdapter.CartViewHolder>(DiffCallback){
+class CartAdapter (val context: Context, private var cartItems:MutableList<CartItem>, private val onDeleteClickListener: (CartItem, Int) -> Unit): ListAdapter<CartItem,CartAdapter.CartViewHolder>(DiffCallback){
 
         init{
             submitList(cartItems)
@@ -23,8 +23,15 @@ class CartAdapter (val context: Context, val cartItems:List<CartItem>): ListAdap
 
 
     class CartViewHolder(private val binding:CartCheckoutBinding):RecyclerView.ViewHolder(binding.root) {
-        fun bind(cartItem:CartItem){
+        fun bind(cartItem:CartItem,onDeleteClickListener: (CartItem, Int) -> Unit){
             val binding=CartCheckoutBinding.bind(itemView)
+            binding.ibDelete.setOnClickListener{
+                val position= bindingAdapterPosition
+                if (position != RecyclerView.NO_POSITION){
+                    onDeleteClickListener(cartItem,position)
+
+                }
+            }
             binding.tvCartItemName.text=cartItem.burger.name
             binding.tvCartItemPrice.text="Ksh.${cartItem.burger.price}"
             binding.tvCartItemQuantity.text="x${cartItem.quantity}"
@@ -35,6 +42,8 @@ class CartAdapter (val context: Context, val cartItems:List<CartItem>): ListAdap
                 .centerCrop()
                 .into(binding.ivCartItemImage)
         }
+
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartAdapter.CartViewHolder {
@@ -44,7 +53,7 @@ class CartAdapter (val context: Context, val cartItems:List<CartItem>): ListAdap
 
     override fun onBindViewHolder(holder: CartViewHolder, position: Int) {
         val cartItemObject= getItem(position)
-        holder.bind(cartItemObject)
+        holder.bind(cartItemObject,onDeleteClickListener)
         
     }
 

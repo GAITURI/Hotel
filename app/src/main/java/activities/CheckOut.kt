@@ -11,7 +11,9 @@ import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.hotel.R
 import com.example.hotel.data.CartAdapter
 import com.example.hotel.utils.ConnectionManager
@@ -26,11 +28,12 @@ import java.util.UUID
 class CheckOut : AppCompatActivity() {
 
 
-    lateinit var toolbar: androidx.appcompat.widget.Toolbar
-    lateinit var recyclerView: androidx.recyclerview.widget.RecyclerView
+    lateinit var toolbar: Toolbar
+    lateinit var recyclerView: RecyclerView
     lateinit var btnPlaceOrder: Button
+    lateinit var deleteButton: Button
     lateinit var menuAdapter: CartAdapter
-    lateinit var menuList: List<CartItem>
+    lateinit var menuList: MutableList<CartItem>
     lateinit var txtOrderingFrom:TextView
     lateinit var txtOrderingFromText:TextView
     lateinit var txtTotalCost:TextView
@@ -60,8 +63,27 @@ class CheckOut : AppCompatActivity() {
         toolbar=findViewById(R.id.toolBar)
         recyclerView=findViewById(R.id.recyclerViewCart)
         txtOrderingFrom= findViewById(R.id.txtOrderingFrom)
-         menuList= intent.getParcelableArrayListExtra<CartItem>("cartItems")?: emptyList()
-        menuAdapter= CartAdapter(this,menuList)
+         menuList= intent.getParcelableArrayListExtra<CartItem>("cartItems")?.toMutableList()?: mutableListOf()
+        menuAdapter= CartAdapter(
+            this, menuList){
+            cartItemToDelete, position->
+            AlertDialog.Builder(this)
+                .setTitle("Delete Item")
+                .setMessage("Confirm to Delete ${cartItemToDelete.burger.name}?")
+                .setPositiveButton("Delete"){
+                    dialog, _ ->
+                    if(position>=0 && position<menuList.size){
+                        menuList.removeAt(position)
+                        menuAdapter.submitList(ArrayList(menuList))
+
+                        menuAdapter.notifyItemRemoved(position)
+                        menuAdapter.notifyItemRangeChanged(position, menuList.size)
+                        menuAdapter.notifyDataSetChanged()
+                        updateTotalCostDisplay()
+
+
+                    }                    }
+        }
         recyclerView.layoutManager= LinearLayoutManager(this)
         recyclerView.adapter= menuAdapter
 
@@ -145,13 +167,18 @@ class CheckOut : AppCompatActivity() {
                }
            }
         }
+
+    private fun updateTotalCostDisplay() {
+        TODO("Not yet implemented")
+    }
+
     override fun onBackPressed(){
         AlertDialog.Builder(this)
             .setTitle("Add More Items?")
             .setMessage("Do you want to add more items or Continue with Current List?")
             .setPositiveButton("Add to Cart"){
                 dialog, which->
-                setResult(Activity.RESULT_OK)
+                setResult(RESULT_OK)
                 super.onBackPressed()
             }
             .setNegativeButton("Continue with Order"){
