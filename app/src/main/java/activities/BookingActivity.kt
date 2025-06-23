@@ -7,8 +7,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import com.example.hotel.R
 import com.example.hotel.databinding.ActivityBookingBinding
+import com.google.firebase.auth.FirebaseAuth
 
 class BookingActivity : AppCompatActivity() {
+    private lateinit var firebaseAuth:FirebaseAuth
+
     private lateinit var binding: ActivityBookingBinding
     private lateinit var cardView: CardView
     override fun onCreate(savedInstanceState: Bundle?) {
