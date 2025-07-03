@@ -51,7 +51,7 @@ android {
 }
 
 dependencies {
-
+    implementation(libs.material)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -59,11 +59,13 @@ dependencies {
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
+    implementation(libs.material3)
     implementation(libs.androidx.material3)
     implementation(libs.androidx.appcompat)
-    implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.compose.material.material)
+
 
     // UI & Network
     implementation(libs.floatingsearchview)
@@ -74,13 +76,14 @@ dependencies {
     implementation(libs.logging.interceptor)
     implementation(libs.glide)
     implementation(libs.okhttp3.integration)
-    implementation("androidx.room:room-runtime:2.7.1")
+    implementation(libs.androidx.room.runtime)
     implementation("androidx.room:room-ktx:2.7.1")
     implementation(libs.volley)
     implementation(libs.firebase.database.ktx)
     implementation(libs.litert.metadata)
     implementation(libs.play.services.base)
     implementation(libs.firebase.messaging)
+    implementation(libs.androidx.espresso.core)
     annotationProcessor(libs.androidx.room.compiler)
     annotationProcessor(libs.glide.compiler)
 
