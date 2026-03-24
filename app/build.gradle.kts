@@ -48,6 +48,16 @@ android {
         dataBinding = true  // ✅ Use dataBinding instead of viewBinding (if needed)
         viewBinding= true
     }
+    dependenciesInfo {
+        includeInApk = true
+        includeInBundle = true
+    }
+    buildToolsVersion = "35.0.1"
+    testOptions{
+        unitTests{
+            isIncludeAndroidResources= true
+        }
+    }
 }
 
 dependencies {
@@ -114,7 +124,15 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+//    roboelectric
+    testImplementation(libs.robolectric)
+    testImplementation(libs.mockk)
+    testImplementation(libs.androidx.test.core)
+    testImplementation(libs.androidx.test.ext.junit)
+    testImplementation(libs.google.truth)
 }
+
 
 // ✅ Force consistent versions to avoid duplicates
 configurations.all {
